@@ -1,0 +1,2 @@
+DEFAULT_EXPIRE = 7200  # 2 hours
+REDIS_GAME_KEY_PREFIX = 'game_'
