@@ -2,7 +2,7 @@ from typing import Dict, List
 
 import requests
 from fastapi import FastAPI, APIRouter
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
 from pydantic import BaseModel
 from uvicorn.config import logger
 
@@ -14,6 +14,7 @@ from game.environment import (
     GAME_REGISTRATION_TOKEN,
 )
 from game import GAME_NAME, GAME_DISPLAY_NAME, GAME_DESCRIPTION
+from game.docs import DOCS_HTML
 
 
 MANAGER = Manager()
@@ -32,6 +33,7 @@ def register_with_web():
                 'display_name': GAME_DISPLAY_NAME,
                 'url': GAME_PUBLIC_URL,
                 'description': GAME_DESCRIPTION,
+                'docs_url': f'{GAME_PUBLIC_URL}/how-to-play',
             },
             headers={'X-Registration-Token': GAME_REGISTRATION_TOKEN},
             timeout=5,
@@ -54,6 +56,12 @@ def _error(message: str, status: int) -> JSONResponse:
         {'status': 'ERROR', 'code': status, 'message': message},
         status_code=status,
     )
+
+
+@router.get("/how-to-play", response_class=HTMLResponse)
+async def how_to_play():
+    """This game's own 'how to play' page (linked from the web)."""
+    return DOCS_HTML
 
 
 # The four endpoints the match server calls. You usually don't touch these;
