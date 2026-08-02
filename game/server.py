@@ -8,7 +8,11 @@ from uvicorn.config import logger
 
 from game.manager import Manager
 from game.exceptions import GameNotFoundInRedis, InvalidQuantityPlayers
-from game.environment import WEB_REGISTRY_URL, GAME_PUBLIC_URL
+from game.environment import (
+    WEB_REGISTRY_URL,
+    GAME_PUBLIC_URL,
+    GAME_REGISTRATION_TOKEN,
+)
 from game import GAME_NAME, GAME_DISPLAY_NAME, GAME_DESCRIPTION
 
 
@@ -29,6 +33,7 @@ def register_with_web():
                 'url': GAME_PUBLIC_URL,
                 'description': GAME_DESCRIPTION,
             },
+            headers={'X-Registration-Token': GAME_REGISTRATION_TOKEN},
             timeout=5,
         )
         logger.info(f"Registered '{GAME_NAME}' with the web at {WEB_REGISTRY_URL}")

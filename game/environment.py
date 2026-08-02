@@ -16,8 +16,10 @@ DB = load_env_var('REDIS_DB_INDEX', int, '0')
 DECODE_RESPONSES = load_env_var('DECODE_RESPONSES', bool, 'True')
 
 # Self-registration with the web.
-#   WEB_REGISTRY_URL  full base URL of the web (scheme included), e.g.
-#                     http://localhost:8000 or https://<app>.up.railway.app
-#   GAME_PUBLIC_URL   this game's own reachable base URL (what the server calls)
+#   WEB_REGISTRY_URL         full base URL of the web (scheme included), e.g.
+#                            http://localhost:8000 or https://<app>.up.railway.app
+#   GAME_PUBLIC_URL          this game's own reachable base URL (server -> game)
+#   GAME_REGISTRATION_TOKEN  shared token you request from a Code Challenge admin
 WEB_REGISTRY_URL = load_env_var('WEB_REGISTRY_URL', str, 'http://localhost:8000')
 GAME_PUBLIC_URL = load_env_var('GAME_PUBLIC_URL', str, 'http://localhost:50055')
+GAME_REGISTRATION_TOKEN = load_env_var('GAME_REGISTRATION_TOKEN', str, '')

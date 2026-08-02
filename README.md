@@ -1,7 +1,7 @@
 # codechallenge-game-template
 
 A starting point for building a **game backend** for
-[The Code Challenge](https://github.com/thecodechallenge). It's a small
+[The Code Challenge](https://codechallenge.up.railway.app). It's a small
 FastAPI service that already speaks the platform's HTTP protocol, persists
 games in Redis, and **registers itself** with the web on startup. It ships
 with a trivial example game ("Sum Battle") for you to replace.
@@ -65,16 +65,20 @@ the action endpoints return `{ game_id, current_player, turn_data, play_data }`.
 ## Self-registration
 
 On startup the service POSTs to the web's `/games/register/` with its name,
-public URL and description, so it shows up automatically. Configure:
+public URL and description, so it shows up automatically. **Registration
+requires a token** (sent as the `X-Registration-Token` header) — request it
+from a Code Challenge admin (it's shown on the web's Games admin screen).
+Configure:
 
-| Env var            | Meaning                                             | Local default            |
-| ------------------ | --------------------------------------------------- | ------------------------ |
-| `WEB_REGISTRY_URL` | full base URL of the web (scheme included)          | `http://localhost:8000`  |
-| `GAME_PUBLIC_URL`  | this game's own reachable base URL (server → game)  | `http://localhost:50055` |
-| `REDIS_URL`        | Redis for persistence                               | `redis://localhost:6379/0` |
+| Env var                   | Meaning                                            | Local default              |
+| ------------------------- | -------------------------------------------------- | -------------------------- |
+| `WEB_REGISTRY_URL`        | full base URL of the web (scheme included)         | `http://localhost:8000`    |
+| `GAME_PUBLIC_URL`         | this game's own reachable base URL (server → game) | `http://localhost:50055`   |
+| `GAME_REGISTRATION_TOKEN` | shared token you request from an admin             | _(empty — required)_       |
+| `REDIS_URL`               | Redis for persistence                              | `redis://localhost:6379/0` |
 
-> In production these are full URLs (e.g. `https://<web>.up.railway.app` and
-> `https://<your-game>.up.railway.app`).
+> In production the URLs are full https URLs (e.g. `https://<web>.up.railway.app`
+> and `https://<your-game>.up.railway.app`).
 
 ## Run locally
 
