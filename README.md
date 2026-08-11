@@ -1,7 +1,7 @@
 # codechallenge-game-template
 
 A starting point for building a **game backend** for
-[The Code Challenge](https://codechallenge.up.railway.app). It's a small
+[The Code Challenge](https://codechallenge.net.ar). It's a small
 FastAPI service that already speaks the platform's HTTP protocol, persists
 games in Redis, and **registers itself** with the web on startup. It ships
 with a trivial example game ("Sum Battle") for you to replace.
@@ -77,8 +77,8 @@ Configure:
 | `GAME_REGISTRATION_TOKEN` | shared token you request from an admin             | _(empty — required)_       |
 | `REDIS_URL`               | Redis for persistence                              | `redis://localhost:6379/0` |
 
-> In production the URLs are full https URLs (e.g. `https://<web>.up.railway.app`
-> and `https://<your-game>.up.railway.app`).
+> In production the URLs are full https URLs (e.g. `https://codechallenge.net.ar`
+> and `https://<your-game>.codechallenge.net.ar`).
 
 ## Run locally
 
